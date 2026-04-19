@@ -1,0 +1,27 @@
+# import()
+
+@player &aNow importing {{this.findables.length()}} scripts. Please ignore any errors.
+
+# define the namespace and variable
+@define String namespace = this.variable_name.split("::")[0]
+@define String variable = this.variable_name.split("::")[1]
+
+# define the variable (will automatically fail if it already exists)
+@bypass /namespace define {{namespace}}
+@bypass /variable define {{namespace}} relative search::Search {{variable}}
+
+@for String findable in this.findables
+
+    # if the findable is a UUID, create an entity script
+    @if findable.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+        @bypass /script remove entity {{findable}}
+        @bypass /script create entity {{findable}} @var {{this.variable_name}}.find("{{findable}}")
+    
+    # otherwise, create an interact script
+    @else
+        @bypass /script remove interact {{findable}}
+        @bypass /script create interact {{findable}} @var {{this.variable_name}}.find("{{findable}}")
+    @fi
+@done
+
+@player &aSuccessfully imported!

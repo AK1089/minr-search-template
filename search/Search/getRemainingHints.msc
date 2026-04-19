@@ -1,0 +1,21 @@
+# String[] getRemainingHints()
+
+@define String[] hints = String[]
+@define String hint = ""
+
+# loop through all findables
+@for String findable in this.template.findables
+
+    # if the findable is not found, get the hint
+    @if !this.isFound(findable)
+        @var hint = this.getHint(findable)
+
+        # if there is a hint, add it to the list
+        @if hint != ""
+            @var hints.append(hint)
+        @fi
+    @fi
+@done
+
+# return the list of hints
+@return hints

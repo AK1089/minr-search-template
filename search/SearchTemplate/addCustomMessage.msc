@@ -1,0 +1,13 @@
+# addCustomMessage(String findable, String message, String trigger)
+
+@define String identifier = findable + "/*/" + message
+
+@if trigger == "ON_FINDABLE_FOUND_NEW"
+    @var this.custom_messages_ON_FINDABLE_FOUND_NEW.append(identifier)
+@elseif trigger == "ON_FINDABLE_FOUND_OLD"
+    @var this.custom_messages_ON_FINDABLE_FOUND_OLD.append(identifier)
+@elseif trigger == "ON_FINDABLE_FOUND_ALL"
+    @var this.custom_messages_ON_FINDABLE_FOUND_ALL.append(identifier)
+@else
+    @player &cInvalid trigger&f: {{trigger}}
+@fi

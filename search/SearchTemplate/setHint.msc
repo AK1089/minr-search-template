@@ -1,0 +1,11 @@
+# setHint(String findable, String hint)
+
+# if a hint for this findable is already in the list, remove it
+@for String candidate in this.hints
+    @if (candidate.startsWith(findable + "/*/"))
+        @var this.hints.remove(this.hints.find(candidate))
+    @fi
+@done
+
+# add the hint to the list
+@var this.hints.append(findable + "/*/" + hint)

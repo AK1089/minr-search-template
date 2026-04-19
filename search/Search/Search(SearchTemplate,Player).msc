@@ -1,0 +1,11 @@
+# Search(SearchTemplate template, Player player)
+
+# store the template and player
+@var this.template = template
+@var this.player = player
+
+# create a boolean array to store the found status of each findable
+@var this.found = Boolean[]
+@for String findable in template.findables
+    @var this.found.append(false)
+@done

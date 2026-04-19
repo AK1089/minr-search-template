@@ -1,0 +1,5 @@
+# set(String findable, Boolean value)
+
+# find the right indexset the value of the findable
+@define Int correctIndex = this.template.findables.find(findable)
+@var this.found[correctIndex] = value

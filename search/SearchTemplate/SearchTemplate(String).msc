@@ -1,0 +1,15 @@
+# SearchTemplate(String variable_name)
+
+# basic variables and data
+@var this.variable_name = variable_name
+@var this.findables = String[]
+@var this.hints = String[]
+
+# custom messages and sounds
+@var this.custom_messages_ON_FINDABLE_FOUND_NEW = String[]
+@var this.custom_sounds_ON_FINDABLE_FOUND_NEW = String[]
+@var this.custom_messages_ON_FINDABLE_FOUND_OLD = String[]
+@var this.custom_sounds_ON_FINDABLE_FOUND_OLD = String[]
+@var this.custom_messages_ON_FINDABLE_FOUND_ALL = String[]
+@var this.custom_sounds_ON_FINDABLE_FOUND_ALL = String[]
+

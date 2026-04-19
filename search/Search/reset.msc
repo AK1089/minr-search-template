@@ -1,0 +1,6 @@
+# reset()
+
+# set all found to false
+@for Int i in list::range(0, this.template.findables.length())
+    @var this.found[i] = false
+@done

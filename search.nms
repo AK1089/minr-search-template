@@ -1,0 +1,68 @@
+@namespace search
+    @class SearchTemplate
+        SearchTemplate(String variable_name)
+        String[] findables
+        String[] hints
+        String variable_name
+
+        # Messages and sounds
+        String message_ON_FINDABLE_FOUND_NEW = "&aYou found a new object! &e${found}&7/&e${total}"
+        String sound_ON_FINDABLE_FOUND_NEW = "minecraft:block.note_block.chime"
+        String message_ON_FINDABLE_FOUND_OLD = "&cYou have already found this object! &e${found}&7/&e${total}"
+        String sound_ON_FINDABLE_FOUND_OLD = "minecraft:block.note_block.bass"
+        String message_ON_FINDABLE_FOUND_ALL = "&aYou have found all ${total:w} objects!"
+        String sound_ON_FINDABLE_FOUND_ALL = "minecraft:entity.player.levelup"
+
+        # Custom messages and sounds for each findable
+        String[] custom_messages_ON_FINDABLE_FOUND_NEW
+        String[] custom_sounds_ON_FINDABLE_FOUND_NEW
+        String[] custom_messages_ON_FINDABLE_FOUND_OLD
+        String[] custom_sounds_ON_FINDABLE_FOUND_OLD
+        String[] custom_messages_ON_FINDABLE_FOUND_ALL
+        String[] custom_sounds_ON_FINDABLE_FOUND_ALL
+        
+        # Position to teleport to when all findables are found
+        Position finishTeleport
+
+        # add findable to the list
+        add(String findable)
+
+        # add hint to the findable
+        setHint(String findable, String hint)
+
+        # set message for the findable
+        addCustomMessage(String findable, String message, String trigger)
+        addCustomSound(String findable, String sound, String trigger)
+
+        # import scripts to the physical findables
+        import()
+
+        # get for a new player
+        search::Search start(Player player)
+
+    @endclass
+
+    @class Search
+        Search(SearchTemplate template, Player player)
+        search::SearchTemplate template
+        Player player
+        Boolean[] found
+
+        # methods to alter the found array
+        find(String findable)
+        set(String findable, Boolean value)
+        reset()
+
+        # methods to get information about the found array
+        Boolean isFound(String findable)
+        Int countFound()
+        Int countTotal()
+        Int countRemaining()
+
+        # methods to get hint information
+        String getHint(String findable)
+        String[] getRemainingHints()
+    @endclass
+
+
+@endnamespace

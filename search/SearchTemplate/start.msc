@@ -1,0 +1,3 @@
+# Search start(player)
+
+@return search::Search(this, player)

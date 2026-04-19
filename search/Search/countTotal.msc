@@ -1,0 +1,4 @@
+# Int countTotal()
+
+# return the length of the findables array
+@return this.template.findables.length()

@@ -1,0 +1,89 @@
+# find(String findable)
+
+# the custom messages and sounds to search through
+@define String[] messagesToSearch = String[]
+@define String[] soundsToSearch = String[]
+
+# the default message and sound
+@define String message
+@define String sound
+
+# stores the position of the findable
+@define Int correctIndex = -1
+
+# loop through all findables and grab the correct index
+@for Int i in list::range(0, this.template.findables.length())
+    @if this.template.findables[i] == findable
+        @var correctIndex = i
+    @fi
+@done
+
+# if the findable is not in the list, return without doing anything
+@if correctIndex == -1
+    @return
+@fi
+
+# if this findable has been found before
+@if this.found[correctIndex]
+    @var message = this.template.message_ON_FINDABLE_FOUND_OLD
+    @var sound = this.template.sound_ON_FINDABLE_FOUND_OLD
+    @var messagesToSearch = this.template.custom_messages_ON_FINDABLE_FOUND_OLD
+    @var soundsToSearch = this.template.custom_sounds_ON_FINDABLE_FOUND_OLD
+
+# if this is the last findable to be found
+@elseif this.countRemaining() == 1
+    @var message = this.template.message_ON_FINDABLE_FOUND_ALL
+    @var sound = this.template.sound_ON_FINDABLE_FOUND_ALL
+    @var messagesToSearch = this.template.custom_messages_ON_FINDABLE_FOUND_ALL
+    @var soundsToSearch = this.template.custom_sounds_ON_FINDABLE_FOUND_ALL
+
+    # teleport the player if a finish teleport is set
+    @if this.template.finishTeleport != null
+        @var this.player.teleport(this.template.finishTeleport)
+    @fi
+    
+
+# if this is a new findable entirely
+@else
+    @var message = this.template.message_ON_FINDABLE_FOUND_NEW
+    @var sound = this.template.sound_ON_FINDABLE_FOUND_NEW
+    @var messagesToSearch = this.template.custom_messages_ON_FINDABLE_FOUND_NEW
+    @var soundsToSearch = this.template.custom_sounds_ON_FINDABLE_FOUND_NEW
+@fi
+
+# set the findable to found
+@var this.found[correctIndex] = true
+
+# update the message if a custom one is found
+@for String candidateMessage in messagesToSearch
+    @if candidateMessage.startsWith(findable)
+        @var message = candidateMessage
+    @fi
+@done
+
+# update the sound if a custom one is found
+@for String candidateSound in soundsToSearch
+    @if candidateSound.startsWith(findable)
+        @var sound = candidateSound
+    @fi
+@done
+
+# process the message
+@var message = message.replace("${found}", String(this.countFound()))
+@var message = message.replace("${total}", String(this.countTotal()))
+@var message = message.replace("${remaining}", String(this.countRemaining()))
+
+@var message = message.replace("${found:w}", dialogue::number_name(this.countFound()))
+@var message = message.replace("${total:w}", dialogue::number_name(this.countTotal()))
+@var message = message.replace("${remaining:w}", dialogue::number_name(this.countRemaining()))
+
+@var message = message.replace("${percentage}", String(100 * this.countFound() / this.countTotal()))
+@var message = message.replace("${percentage:1}", String(1000 * this.countFound() / this.countTotal() * 0.1))
+@var message = message.replace("${percentage:2}", String(10000 * this.countFound() / this.countTotal() * 0.01))
+@var message = message.replace("${percentage:3}", String(100000 * this.countFound() / this.countTotal() * 0.001))
+@var message = message.replace("${percentage:4}", String(1000000 * this.countFound() / this.countTotal() * 0.0001))
+@var message = message.replace("${percentage:5}", String(10000000 * this.countFound() / this.countTotal() * 0.00001))
+
+# display the message and play the sound
+@player {{message}}
+@bypass /playsound {{sound}} master {{this.player}}

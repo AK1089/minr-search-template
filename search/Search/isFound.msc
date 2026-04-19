@@ -1,0 +1,4 @@
+# Boolean isFound(String findable)
+
+@define Int correctIndex = this.template.findables.find(findable)
+@return this.found[correctIndex]

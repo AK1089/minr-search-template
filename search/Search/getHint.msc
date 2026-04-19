@@ -1,0 +1,11 @@
+# String getHint(String findable)
+
+# loop through all hints and return the hint for the findable
+@for String hint in this.template.hints
+    @if hint.startsWith(findable + "/*/")
+        @return hint.replace(findable + "/*/", "")
+    @fi
+@done
+
+# if no hint is found, return the default hint
+@return ""

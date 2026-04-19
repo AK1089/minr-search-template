@@ -1,0 +1,10 @@
+# add(String findable)
+
+# check if the findable is already in the list
+@if this.findables.contains(findable)
+    @player &cThe findable &f{{findable}} &cis already in the list.
+    @return
+@fi
+
+# add the findable to the list
+@var this.findables.append(findable)

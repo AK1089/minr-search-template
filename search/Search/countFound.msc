@@ -1,0 +1,14 @@
+# Int countFound()
+
+# initialise count to 0
+@define Int count = 0
+
+# loop through all findables and count the number of found
+@for Boolean check in this.found
+    @if check
+        @var count += 1
+    @fi
+@done
+
+# return the count
+@return count

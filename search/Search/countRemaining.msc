@@ -1,0 +1,4 @@
+# Int countRemaining()
+
+# return the total number of findables minus the number of found
+@return this.countTotal() - this.countFound()

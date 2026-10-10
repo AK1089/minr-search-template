@@ -14,13 +14,13 @@
 
     # if the findable is a UUID, create an entity script
     @if findable.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
-        @bypass /script remove entity {{findable}}
-        @bypass /script create entity {{findable}} @var {{this.variable_name}}.find("{{findable}}")
+        @command /script remove entity {{findable}}
+        @command /script create entity {{findable}} @var {{this.variable_name}}.find("{{findable}}")
     
     # otherwise, create an interact script
     @else
-        @bypass /script remove interact {{findable}}
-        @bypass /script create interact {{findable}} @var {{this.variable_name}}.find("{{findable}}")
+        @command /script remove interact {{findable}}
+        @command /script create interact {{findable}} @var {{this.variable_name}}.find("{{findable}}")
     @fi
 @done
 

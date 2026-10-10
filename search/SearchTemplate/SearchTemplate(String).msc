@@ -12,4 +12,3 @@
 @var this.custom_sounds_ON_FINDABLE_FOUND_OLD = String[]
 @var this.custom_messages_ON_FINDABLE_FOUND_ALL = String[]
 @var this.custom_sounds_ON_FINDABLE_FOUND_ALL = String[]
-
